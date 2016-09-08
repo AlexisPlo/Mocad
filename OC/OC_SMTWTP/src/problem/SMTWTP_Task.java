@@ -53,6 +53,7 @@ public class SMTWTP_Task {
 	}
 	
 	
+	
 	public String toString(){
 		String res = "Task " + this.taskNb;
 		res = res + " ; " + this.procTime;

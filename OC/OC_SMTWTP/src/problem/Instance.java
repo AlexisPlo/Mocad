@@ -1,5 +1,5 @@
 package problem;
 
-public class Instance {
+public interface Instance {
 
 }

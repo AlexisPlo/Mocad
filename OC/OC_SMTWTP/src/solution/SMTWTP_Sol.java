@@ -21,12 +21,4 @@ public class SMTWTP_Sol {
 		this.taskNbList = taskNbList;
 	}
 	
-	public static SMTWTP_Sol randomSolution(int instanceSize){
-		ArrayList<Integer> nbList = new ArrayList<Integer>();
-		for (int i = 0; i<instanceSize; i++ ){
-			nbList.add(i);
-		}
-		Collections.shuffle(nbList);
-		return new SMTWTP_Sol(nbList);
-	}
 }
