@@ -46,7 +46,7 @@ public class SMTWTP_Swap implements Neighbourhood {
 
 	@Override
 	public boolean hasNext() {
-		return act_i >= i_size;
+		return act_i < i_size;
 	}
 
 	private void next_pair(){

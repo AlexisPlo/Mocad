@@ -41,27 +41,66 @@ public class HillClimbing extends SMTWTP_Algo{
 
 	@Override
 	public SMTWTP_Sol run() {
-		SMTWTP_Sol initial = this.init.run();
+		SMTWTP_Sol actual = this.init.run();
 		boolean better = true;
 		
 		if(select == 1){
 			
-			SMTWTP_Sol actual = initial;
+			
+			int old_score = this.evaluator.evaluate(actual);
 			while(better){
-				int best = this.evaluator.evaluate(actual);
+				int best_score = old_score;
+				
+				SMTWTP_Sol bestNei = actual;
 				nei.init(actual);
+				int i = 0;
 				while(nei.hasNext()){
 					SMTWTP_Sol challenger = nei.next();
 					int new_score = this.evaluator.evaluate(challenger);
+					if (new_score < best_score){
+						bestNei = challenger;
+						best_score = new_score;
+					}
+					i++;
 				}
+				System.out.println(i);
+				if (best_score < old_score){
+					actual = bestNei;
+					old_score = best_score;
+				}
+				else
+					better = false;
 			}
 		}
 		
 		else{
-			
+			int old_score = this.evaluator.evaluate(actual);
+			while(better){
+				int best_score = old_score;
+				
+				SMTWTP_Sol bestNei = actual;
+				nei.init(actual);
+				int i = 0;
+				while(nei.hasNext()){
+					SMTWTP_Sol challenger = nei.next();
+					int new_score = this.evaluator.evaluate(challenger);
+					if (new_score < best_score){
+						bestNei = challenger;
+						best_score = new_score;
+						break;
+					}
+				}
+				System.out.println(i);
+				if (best_score < old_score){
+					actual = bestNei;
+					old_score = best_score;
+				}
+				else
+					better = false;
+			}
 		}
 		
-		return null;
+		return actual;
 	}
 	
 }

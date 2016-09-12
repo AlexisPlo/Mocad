@@ -10,6 +10,7 @@ import evaluation.SMTWTP_Eval;
 import solution.SMTWTP_Sol;
 
 import algorithm.EDD;
+import algorithm.HillClimbing;
 import algorithm.MDD;
 import algorithm.RandomSol;
 
@@ -103,12 +104,17 @@ public class SMTWTP implements Instance{
 //			System.out.println(i);
 //		}
 		
-		for(int i = 0; i<125; i++){
-			SMTWTP_Eval eval = new SMTWTP_Eval(instances.get(i));
-			MDD algo = new MDD(instances.get(i));
+		//for(int i = 0; i<125; i++){
+			SMTWTP_Eval eval = new SMTWTP_Eval(instances.get(0));
+			HillClimbing algo = new HillClimbing(instances.get(0), 0, 1, 2);
 			SMTWTP_Sol sol1 = algo.run();
-			System.out.println("Instance " + i + "\n");
+			System.out.println("Instance " + 0 );
 			System.out.println("La fonction de cout de la solution trouvée est: " + eval.evaluate(sol1));
-		}
+			MDD algo2 = new MDD(instances.get(0));
+			SMTWTP_Sol sol2 = algo2.run();
+			System.out.println("Instance " + 0 );
+			System.out.println("La fonction de cout de la solution trouvée est: " + eval.evaluate(sol2));
+			
+		//}
 	}
 }
