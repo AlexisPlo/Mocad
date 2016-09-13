@@ -1,0 +1,14 @@
+Auteur: PERNET Alexis
+
+TP1: SMA Architecture Générale Classique
+
+Pour le moment on a un affichage simple, et uniquement un scheduler équitable.
+Il faut également ajouter la redirection pour la trace, et la gestion des graine aléatoires.
+
+Pour lancer le SMA, faire:
+
+	python Main.py
+
+Pour changer les paramètres, il faut modifier les variables globales dans Main.py
+
+

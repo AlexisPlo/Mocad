@@ -62,5 +62,5 @@ class SMA:
 				ag.update()
 			self.view.updateWidgets(self.env)
 			self.view.update()
-			time.sleep(0.2)
+			time.sleep(1)
 			
