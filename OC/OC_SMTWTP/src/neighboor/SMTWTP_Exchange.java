@@ -15,7 +15,7 @@ public class SMTWTP_Exchange implements Neighbourhood{
 	@Override
 	public void init(SMTWTP_Sol base) {
 		this.base = base;
-		this.i_size = base.getTaskNbList().size();
+		this.i_size = base.getTaskNbList().size() - 1;
 		rand_i = new ArrayList<Integer>();
 		for(int i = 0; i < i_size; i++){
 			rand_i.add(i);

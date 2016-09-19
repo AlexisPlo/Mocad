@@ -5,14 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import neighboor.SMTWTP_Exchange;
+import neighboor.SMTWTP_Insert;
+import neighboor.SMTWTP_Swap;
+
 import evaluation.SMTWTP_Eval;
 
+import selection.Best_Improv;
+import selection.First_Improv;
 import solution.SMTWTP_Sol;
 
 import algorithm.EDD;
 import algorithm.HillClimbing;
 import algorithm.MDD;
 import algorithm.RandomSol;
+import algorithm.VND;
 
 public class SMTWTP implements Instance{
 
@@ -104,17 +111,17 @@ public class SMTWTP implements Instance{
 //			System.out.println(i);
 //		}
 		
-		//for(int i = 0; i<125; i++){
-			SMTWTP_Eval eval = new SMTWTP_Eval(instances.get(0));
-			HillClimbing algo = new HillClimbing(instances.get(0), 0, 1, 2);
+		for(int i = 0; i<20; i++){
+			SMTWTP_Eval eval = new SMTWTP_Eval(instances.get(i));
+			VND algo = new VND(instances.get(i), new First_Improv(), 0, new MDD(instances.get(i)));
 			SMTWTP_Sol sol1 = algo.run();
-			System.out.println("Instance " + 0 );
+			System.out.println("Instance " + i );
 			System.out.println("La fonction de cout de la solution trouvée est: " + eval.evaluate(sol1));
-			MDD algo2 = new MDD(instances.get(0));
+			HillClimbing algo2 = new HillClimbing(instances.get(i), new First_Improv(), new SMTWTP_Insert(), new MDD(instances.get(i)));
 			SMTWTP_Sol sol2 = algo2.run();
-			System.out.println("Instance " + 0 );
+			System.out.println("Instance " + i );
 			System.out.println("La fonction de cout de la solution trouvée est: " + eval.evaluate(sol2));
 			
-		//}
+		}
 	}
 }

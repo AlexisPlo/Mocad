@@ -1,41 +1,34 @@
+import random
+
+from Simulateur.core.Environment import Environment
+
+
+
 class Agent:
 
-	def __init__(self, _env, _sma, _posX, _posY, _color):
+	def __init__(self, _env, _sma, _color, _shape):
 		self.env = _env
 		self.color = _color
+		self.sma = _sma
+		self.shape = _shape
+		self.alive = True
+
+	def addRandomToEnv(self):
+		newX = random.randint(0, self.env.gridsizeX - 1)
+		newY = random.randint(0, self.env.gridsizeY - 1)
+		while(self.env.agTab[newX][newY] is not None):
+			newX = random.randint(0, self.env.gridsizeX - 1)
+			newY = random.randint(0, self.env.gridsizeY - 1)
+		self.posX = newX
+		self.posY = newY
+		self.env.put(self, newX, newY)
+
+	def addToEnv(self, _posX, _posY):
+		self.env.put(self, _posX, _posY)
 		self.posX = _posX
 		self.posY = _posY
-		self.pasX = _pasX
-		self.pasY = _pasY
-		self.sma = _sma
-
-	def update(self):
-		self.decide()
 
 
-
-
-
-	def action1(self):
-		self.pasX = -self.pasX
-		self.pasY = -self.pasY
-
-	def action2(self):
-		self.pasX = -self.pasX
-		
-	def action3(self):
-		self.pasY = -self.pasY
-
-	def action4(self, ag):
-		tempX = self.pasX
-		tempY = self.pasY
-		self.pasX = ag.pasX
-		self.pasY = ag.pasY
-		ag.pasX = tempX
-		ag.pasY = tempY
-
-	def action5(self, oldX, oldY, newPosX, newPosY):
-		self.env.agTab[oldX][oldY] = None
-		self.env.agTab[newPosX][newPosY] = self
-		self.posX = newPosX
-		self.posY = newPosY
+	def drawOnCanvas(self, can):
+		if self.shape == "circle":
+			can.create_oval(2,2,28,28, fill = self.color)

@@ -21,6 +21,6 @@ class View(tk.Frame):
 		for i in range(env.gridsizeX):
 			for j in range(env.gridsizeY):
 				self.canvasTab[i][j].delete(tk.ALL)
+				self.canvasTab[i][j].create_rectangle(0,0,31,31,fill="cyan")
 				if env.agTab[i][j] is not None:
-					self.canvasTab[i][j].create_oval(2,2,28,28, fill = env.agTab[i][j].color)
-				
+					env.agTab[i][j].drawOnCanvas(self.canvasTab[i][j])
