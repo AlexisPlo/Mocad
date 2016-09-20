@@ -40,29 +40,22 @@ class Environment:
 			raise Exception("Overlapping with already present agent")
 
 			
-	def getNextCoord(self, posX, posY, hourlyPos):
-		newPosX = posX
-		newPosY = posY
+	def getNextCoord(self, posX, posY, pasX, pasY):
 
-		if (hourlyPos in [7,0,1]):
-			newPosY -= 1
-			if newPosY < 0:
-				newPosY = self.gridsizeY - 1
 
-		if (hourlyPos in [1,2,3]):
-			newPosX += 1
-			if newPosX >= self.gridsizeX:
-				newPosX = 0
+		if self.tor:
 
-		if (hourlyPos in [3,4,5]):
-			newPosY += 1
-			if newPosY >= self.gridsizeY:
-				newPosY = 0
+			newPosX = (posX + pasX + self.gridsizeX) % self.gridsizeX
+			newPosY = (posY + pasY + self.gridsizeY) % self.gridsizeY
 
-		if (hourlyPos in [5,6,7]):
-			newPosX -=1
-			if newPosX < 0:
-				newPosX = selfgridsizeX - 1
-		
+		else:
+
+			newPosX = (posX + pasX)
+			newPosY = (posY + pasY)
+			if newPosX < 0 or newPosX >= self.gridsizeX:
+				newPosX = -1
+			if newPosY < 0 or newPosY >= self.gridsizeY:
+				newPosY = -1
+
 
 		return newPosX, newPosY

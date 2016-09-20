@@ -18,19 +18,21 @@ class SMA:
 
 	def addAgent(self, ag):
 				
-		self.agList.append(ag)
+		self.newList.append(ag)
 
 	def run(self):
 		i = 0
 		while(i<self.nbTicks or self.nbTicks == 0):
-			# self.agList = self.newList
-			# self.newList = []
+			self.agList = self.newList
+			self.newList = []
 			random.shuffle(self.agList)
 			for ag in self.agList:
-				ag.decide()
-			# for ag in self.agList:
-			# 	if ag.alive:
-			# 		self.newList.append(ag)
+				if ag.alive:
+					ag.decide()
+			for ag in self.agList:
+				if ag.alive:
+					self.newList.append(ag)
+
 			self.view.updateWidgets(self.env)
 			self.view.update()
 			time.sleep(0.1)

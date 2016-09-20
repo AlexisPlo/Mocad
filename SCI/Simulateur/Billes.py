@@ -1,18 +1,17 @@
 from Simulateur.core.SMA import SMA
-from Simulateur.View import View
+from Simulateur.core.View import View
 from Simulateur.core.Environment import Environment
 from Simulateur.particles.Particle import Particle
 import time
 
-GRIDSIZEX = 10
-GRIDSIZEY = 10
+GRIDSIZEX = 100
+GRIDSIZEY = 60
 
-SHARKINITNB = 5
-FISHINITNB = 50
+
 TICKSNB = 0
-PARTICLENB = 10
+PARTICLENB = 100
 
-TOR = True
+TOR = False
 
 
 v = View()

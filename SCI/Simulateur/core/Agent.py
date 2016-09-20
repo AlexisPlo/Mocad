@@ -6,12 +6,15 @@ from Simulateur.core.Environment import Environment
 
 class Agent:
 
+	mooreNeiStep = [(0,1),(1,1),(1,0),(1,-1),(0,-1),(-1,-1),(-1,0),(-1,1)]
+
 	def __init__(self, _env, _sma, _color, _shape):
 		self.env = _env
 		self.color = _color
 		self.sma = _sma
 		self.shape = _shape
 		self.alive = True
+		self.sma.addAgent(self)
 
 	def addRandomToEnv(self):
 		newX = random.randint(0, self.env.gridsizeX - 1)
@@ -31,4 +34,5 @@ class Agent:
 
 	def drawOnCanvas(self, can):
 		if self.shape == "circle":
-			can.create_oval(2,2,28,28, fill = self.color)
+			can.create_oval(2,2, 9,9, fill = self.color)
+
