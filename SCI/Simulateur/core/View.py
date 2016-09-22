@@ -2,25 +2,30 @@ import tkinter as tk
 
 class View(tk.Frame):
 
-	def __init__(self, master=None):
+	def __init__(self, _wid, _hei, master=None):
 		tk.Frame.__init__(self,master)
 		self.grid()
-		self.canvasTab = []
+		self.rectangleTab = []
+		self.containsAgentTab = []
+		self.wid = _wid
+		self.hei = _hei
+
 
 
 	def drawWidgets(self, env):
+		self.can = tk.Canvas(self, width =  (self.wid+ 1) * env.gridsizeX , height = (self.hei + 1) * env.gridsizeY, borderwidth = 0)
 		for i in range(env.gridsizeX):
 			tempTab = []
 			for j in range(env.gridsizeY):
-				c = tk.Canvas(self, width = 10, height = 10, borderwidth = 0)
-				c.grid(column = i, row = j)
-				tempTab.append(c)
-			self.canvasTab.append(tempTab)
+				rect = self.can.create_rectangle(i*(self.wid+1),j*(self.hei+1),i*(self.wid+1)+ self.wid,j*(self.hei+1)+self.hei,fill="cyan")
+				tempTab.append(rect)
+			self.rectangleTab.append(tempTab)
+			self.containsAgentTab = [[False for j in range(env.gridsizeY)] for i in range(env.gridsizeX)]
+		self.can.grid()
 
 	def updateWidgets(self, env):
+		self.can.delete("agent")
 		for i in range(env.gridsizeX):
 			for j in range(env.gridsizeY):
-				self.canvasTab[i][j].delete(tk.ALL)
-				self.canvasTab[i][j].create_rectangle(0,0,11,11,fill="cyan")
 				if env.agTab[i][j] is not None:
-					env.agTab[i][j].drawOnCanvas(self.canvasTab[i][j])
+					env.agTab[i][j].drawOnCanvas(self.can, i*(self.wid+1) +1,j*(self.hei+1)+1,i*(self.wid+1)+ self.wid -1,j*(self.hei+1)+self.hei-1)

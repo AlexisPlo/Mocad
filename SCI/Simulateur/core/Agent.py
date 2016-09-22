@@ -32,7 +32,8 @@ class Agent:
 		self.posY = _posY
 
 
-	def drawOnCanvas(self, can):
+	def drawOnCanvas(self, can, xmin, ymin, xmax, ymax):
 		if self.shape == "circle":
-			can.create_oval(2,2, 9,9, fill = self.color)
+			cir = can.create_oval(xmin,ymin, xmax,ymax, fill = self.color, tags = "agent")
+			return cir
 

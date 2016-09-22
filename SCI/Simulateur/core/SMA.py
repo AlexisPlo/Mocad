@@ -3,6 +3,7 @@ import time
 from Simulateur.core.Agent import Agent
 from Simulateur.particles.Particle import Particle
 from Simulateur.core.Environment import Environment
+import cProfile
 
 class SMA:
 
