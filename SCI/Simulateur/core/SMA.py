@@ -1,14 +1,13 @@
 import random
 import time
 from Simulateur.core.Agent import Agent
-from Simulateur.particles.Particle import Particle
 from Simulateur.core.Environment import Environment
 import cProfile
 
 class SMA:
 
 
-	def __init__(self, _env, _view, _schedul, _nbTicks):
+	def __init__(self, _env, _view, _schedul, _nbTicks, _tickTime):
 
 		self.env = _env
 		self.agList = []
@@ -16,6 +15,8 @@ class SMA:
 		self.nbTicks = _nbTicks
 		self.schedul = _schedul
 		self.view = _view
+		self.tickTime = _tickTime
+		self.traceFile = open('watorTrace', 'w')
 
 	def addAgent(self, ag):
 				
@@ -25,6 +26,7 @@ class SMA:
 		i = 0
 		while(i<self.nbTicks or self.nbTicks == 0):
 			self.agList = self.newList
+			self.writeTickLine()
 			self.newList = []
 			random.shuffle(self.agList)
 			for ag in self.agList:
@@ -36,5 +38,16 @@ class SMA:
 
 			self.view.updateWidgets(self.env)
 			self.view.update()
-			time.sleep(0.1)
+			time.sleep(self.tickTime)
 			i += 1
+
+
+	def writeTickLine(self):
+		print("Should not arrive here")
+
+	#Deactivated for now; not used and makes too large trace
+	
+	def writeAgentLine(self, message):
+		pass
+
+		#self.traceFile.write("Agent " + message + ";\n")

@@ -1,0 +1,22 @@
+Auteur: PERNET Alexis
+
+TP2: SMA: Travail sur les comportements
+
+
+Pour lancer wator, faire:
+
+	python3 Wator.py
+
+
+Pour modifier les paramètres d'éxécution, modifier le fichier WatorProperties.py
+
+
+Wator effectue toujours une trace d'éxécution contenant le nombre de poissons et de requins à chaque tick, dans le fichier watorTrace
+
+On peut lancer:
+
+	python3 StatsSMA.py
+
+pour obtenir la courbe d'évolution de la proportion de poissons et de requins lors de la simulation.
+
+Un exemple de courbe est dans le fichier PourcentageFishShark.png

@@ -13,7 +13,7 @@ class Fish(Agent):
 		self.fishBreedTime = _breedTime
 		self.fishBreedCounter = 0
 
-	def decide():
+	def decide(self):
 
 		self.color = "blue"
 		
@@ -27,22 +27,21 @@ class Fish(Agent):
 
 		freeSpotDirection = []
 
-		for(direction in range(8)){
-			pasX, pasY = mooreNeiStep[direction]
-			newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, self.pasX, self.pasY)
+		for direction in range(8):
+			pasX, pasY = Agent.mooreNeiStep[direction]
+			newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, pasX, pasY)
 			if newPosX>=0 and newPosY>=0:
 				thing = self.env.agTab[newPosX][newPosY]
 				if thing is None:
 					freeSpotDirection.append(direction)
-		}
 
 
 		if len(freeSpotDirection) > 0:
 
 			#Moving
 
-			pasX, pasY = mooreNeiStep[random.randint(0, len(freeSpotDirection) - 1)]
-			newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, self.pasX, self.pasY)
+			pasX, pasY = Agent.mooreNeiStep[freeSpotDirection[random.randint(0, len(freeSpotDirection) - 1)]]
+			newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, pasX, pasY)
 			
 			oldPosX = self.posX
 			oldPosY = self.posY
@@ -57,13 +56,14 @@ class Fish(Agent):
 
 
 	def move(self, newPosX, newPosY):
-		self.env.agTab[self.posX, self.posY] = None
+		self.env.agTab[self.posX][self.posY] = None
 		self.addToEnv(newPosX, newPosY)
 
 
 
 
-	def createOffSpring(self, posX, posY):
+	def createOffspring(self, posX, posY):
 		self.fishBreedCounter = 0
-		newFish = Fish(self.env, self.sma, self.breedTime)
+		newFish = Fish(self.env, self.sma, self.fishBreedTime)
 		newFish.addToEnv(posX, posY)
+		self.sma.writeAgentLine("Born Fish")

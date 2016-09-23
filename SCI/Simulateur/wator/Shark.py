@@ -1,6 +1,8 @@
 import random
 
 from Simulateur.core.Agent import Agent
+from Simulateur.wator.Fish import Fish
+
 
 class Shark(Agent):
 
@@ -14,7 +16,7 @@ class Shark(Agent):
 		self.sharkStarveTime = _starveTime
 		self.sharkStarveCounter = _starveTime
 
-	def decide():
+	def decide(self):
 
 		self.color = "red"
 		
@@ -30,16 +32,15 @@ class Shark(Agent):
 		freeSpotDirection = []
 		fishSpotDirection = []
 
-		for(direction in range(8)){
-			pasX, pasY = mooreNeiStep[direction]
-			newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, self.pasX, self.pasY)
+		for direction in range(8):
+			pasX, pasY = Agent.mooreNeiStep[direction]
+			newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, pasX, pasY)
 			if newPosX>=0 and newPosY >=0:
 				thing = self.env.agTab[newPosX][newPosY]
 				if thing is None:
 					freeSpotDirection.append(direction)
 				elif isinstance(thing, Fish):
 					fishSpotDirection.append(direction)
-		}
 
 		moved = False
 		oldPosX = self.posX
@@ -49,11 +50,12 @@ class Shark(Agent):
 
 			#Eating
 
-			pasX, pasY = mooreNeiStep[random.randint(0, len(freeSpotDirection) - 1)]
-			newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, self.pasX, self.pasY)
+			pasX, pasY = Agent.mooreNeiStep[fishSpotDirection[random.randint(0, len(fishSpotDirection) - 1)]]
+			newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, pasX, pasY)
 
 			gonnaDieFish = self.env.agTab[newPosX][newPosY]
 			gonnaDieFish.alive = False
+			self.sma.writeAgentLine("Dead Fish")
 			self.env.agTab[newPosX][newPosY] = None
 
 			self.move(newPosX, newPosY)
@@ -61,12 +63,14 @@ class Shark(Agent):
 			self.sharkStarveCounter = self.sharkStarveTime
 			moved = True
 
-		elif sharkStarveCounter <= 0:
+		elif self.sharkStarveCounter <= 0:
 
 			#Dying
 
 			self.alive = False
 			self.env.agTab[self.posX][self.posY] = None
+			self.sma.writeAgentLine("Dead Shark")
+
 
 
 
@@ -76,8 +80,8 @@ class Shark(Agent):
 
 			#Moving
 			
-			pasX, pasY = mooreNeiStep[random.randint(0, len(freeSpotDirection) - 1)]
-			newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, self.pasX, self.pasY)
+			pasX, pasY = Agent.mooreNeiStep[freeSpotDirection[random.randint(0, len(freeSpotDirection) - 1)]]
+			newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, pasX, pasY)
 		
 
 			self.move(newPosX, newPosY)
@@ -89,13 +93,14 @@ class Shark(Agent):
 
 
 	def move(self, newPosX, newPosY):
-		self.env.agTab[self.posX, self.posY] = None
+		self.env.agTab[self.posX][self.posY] = None
 		self.addToEnv(newPosX, newPosY)
 
 
 
 
-	def createOffSpring(self, posX, posY):
+	def createOffspring(self, posX, posY):
 		self.sharkBreedCounter = 0
-		newFish = Fish(self.env, self.sma, self.breedTime)
-		newFish.addToEnv(posX, posY)
+		newShark = Shark(self.env, self.sma, self.sharkBreedTime, self.sharkStarveTime)
+		newShark.addToEnv(posX, posY)
+		self.sma.writeAgentLine("Born Shark")

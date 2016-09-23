@@ -1,3 +1,6 @@
+import sys
+sys.path.append('.')
+
 from Simulateur.core.SMA import SMA
 from Simulateur.core.View import View
 from Simulateur.core.Environment import Environment
@@ -8,16 +11,16 @@ GRIDSIZEX = 100
 GRIDSIZEY = 100
 
 TICKSNB = 0
-PARTICLENB = 100
+PARTICLENB = 300
 
 TOR = False
 
 
-v = View(10,6)
+v = View(800/GRIDSIZEX,800/GRIDSIZEY)
 
 e = Environment(GRIDSIZEX, GRIDSIZEY, TOR)
 
-s = SMA(e,v,0 ,TICKSNB)
+s = SMA(e,v,0 ,TICKSNB, 0.1)
 
 for i in range(PARTICLENB):
 	p = Particle(e, s)
