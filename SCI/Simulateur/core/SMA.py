@@ -13,6 +13,7 @@ class SMA:
 		self.agList = []
 		self.newList = []
 		self.nbTicks = _nbTicks
+		self.actualTick = 0
 		self.schedul = _schedul
 		self.view = _view
 		self.tickTime = _tickTime
@@ -22,25 +23,27 @@ class SMA:
 				
 		self.newList.append(ag)
 
-	def run(self):
-		i = 0
-		while(i<self.nbTicks or self.nbTicks == 0):
-			self.agList = self.newList
-			self.writeTickLine()
-			self.newList = []
-			random.shuffle(self.agList)
-			for ag in self.agList:
-				if ag.alive:
-					ag.decide()
-			for ag in self.agList:
-				if ag.alive:
-					self.newList.append(ag)
+	def runStep(self):
+		self.agList = self.newList
+		self.writeTickLine()
+		self.newList = []
+		random.shuffle(self.agList)
+		for ag in self.agList:
+			if ag.alive:
+				ag.decide()
+		for ag in self.agList:
+			if ag.alive:
+				self.newList.append(ag)
 
-			self.view.updateWidgets(self.env)
-			self.view.update()
-			time.sleep(self.tickTime)
-			i += 1
+		self.view.updateWidgets(self.env)
+		self.view.update()
+		
+		self.actualTick += 1
 
+		if(self.actualTick<self.nbTicks or self.nbTicks == 0):
+			self.view.after(self.tickTime, self.runStep())
+		else:
+			self.view.master.quit()
 
 	def writeTickLine(self):
 		print("Should not arrive here")

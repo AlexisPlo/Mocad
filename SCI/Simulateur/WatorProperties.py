@@ -8,10 +8,10 @@ gridsizeY = 50
 toric = True
 
 #Nombre de ticks, 0 pour simuler a l'infini
-tickNb = 500
+tickNb = 100
 
-#Temps d'attente entre chaque tick, en secondes
-tickDuration = 0.01
+#Temps d'attente entre chaque tick, en milli-secondes
+tickDuration = 100
 
 #Nombre de requins a l'etat initial
 sharknb = 10

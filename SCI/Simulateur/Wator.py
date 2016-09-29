@@ -1,8 +1,8 @@
 import sys
 import os
 sys.path.append(os.getcwd()+"/..")
-print(os.getcwd())
 
+import tkinter as tk
 from Simulateur.core.SMA import SMA
 from Simulateur.core.View import View
 from Simulateur.core.Environment import Environment
@@ -10,6 +10,7 @@ from Simulateur.particles.Particle import Particle
 from Simulateur.wator.Fish import Fish
 from Simulateur.wator.Shark import Shark
 from Simulateur.wator.SMAWator import SMAWator
+from Simulateur.hunter.ViewHunter import ViewHunter
 
 
 from Simulateur import WatorProperties
@@ -32,8 +33,8 @@ SHARKSTARVETIME = WatorProperties.sharkstarvetime
 
 TOR = WatorProperties.toric
 
-
-v = View(800/GRIDSIZEX,800/GRIDSIZEY)
+root = tk.Tk()
+v = View(800/GRIDSIZEX,800/GRIDSIZEY, master = root)
 
 e = Environment(GRIDSIZEX, GRIDSIZEY, TOR)
 
@@ -48,6 +49,5 @@ for i in range(SHARKNB):
 	sh.addRandomToEnv()
 
 v.drawWidgets(s.env)
-s.run()
-v.update()
-time.sleep(1)
+v.after(100, s.runStep())
+v.mainloop()
