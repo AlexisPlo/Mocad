@@ -33,6 +33,19 @@ class Avatar(Agent):
 
 		newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, pasX, pasY)
 
+		if newPosX>=0 and newPosY >=0:
+			thing = self.env.agTab[newPosX][newPosY]
+			if thing is None:
+				self.env.agTab[self.posX][self.posY] = None
+				self.addToEnv(newPosX, newPosY)
+				self.dijkstraAlg()
+
+			elif isInstance(thing, Hunter):
+				self.sma.gameover()
+
+
+
+
 	def setDirUp(self):
 		self.direction = "up"
 
@@ -44,3 +57,17 @@ class Avatar(Agent):
 
 	def setDirRight(self):
 		self.direction = "right"
+
+
+	def dijkstraAlg(self):
+		toProcessTab = []
+		toProcessTab.append(self.posX, self.posY)
+		actualScore = 0
+
+		while len(toProcessTab) > 0:
+			newTab = []
+			for pos in toProcessTab:
+
+				newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, -1, 0)
+				if newPosX>=0 and newPosY>=0:
+					
