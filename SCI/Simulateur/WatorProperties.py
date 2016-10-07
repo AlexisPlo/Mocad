@@ -8,7 +8,7 @@ gridsizeY = 50
 toric = True
 
 #Nombre de ticks, 0 pour simuler a l'infini
-tickNb = 100
+tickNb = 0
 
 #Temps d'attente entre chaque tick, en milli-secondes
 tickDuration = 100
