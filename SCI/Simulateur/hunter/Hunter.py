@@ -15,15 +15,20 @@ class Hunter(Agent):
 		bestPosX = -1
 		bestPosY = -1
 
+                for i, j in [(-1,0), (1,0), (0,-1), (0,1)]:
 
+                        newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, i, j)
+                        if newPosX>=0 and newPosY>=0:
+                                thing = self.env.agTab[newPosX][newPosY]
+                                if thing is None:
+                                        distance = self.env.dijkstraTab[newPosX][newPosY]
+                                        if distance < bestDist or bestDist = -1:
+                                                bestDist = distance
+                                                bestPosX = newPosX
+                                                bestPosY = newPosY
 
-		newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, 0, 1)
-		if newPosX>=0 and newPosY>=0:
-			thing = self.env.agTab[newPosX][newPosY]
-			if thing is None:
-				distance = self.env.dijkstraTab[newPosX][newPosY]
-				if distance < bestDist or bestDist = -1:
-					bestDist = distance
-					bestPosX = newPosX
-					bestPosY = newPosY
+                if bestPosX != -1:
+
+                        
+                        
 					
