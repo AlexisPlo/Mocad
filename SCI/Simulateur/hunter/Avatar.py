@@ -9,7 +9,7 @@ class Avatar(Agent):
 
 	def __init__(self, _env, _sma):
 
-		Agent.__init__(self, _env, _sma, "magenta", "circle")
+		Agent.__init__(self, _env, _sma, "green", "circle")
 		self.direction = "none"
 
 
@@ -36,12 +36,16 @@ class Avatar(Agent):
 		if newPosX>=0 and newPosY >=0:
 			thing = self.env.agTab[newPosX][newPosY]
 			if thing is None:
+				#If empty square, moving to new position
 				self.env.agTab[self.posX][self.posY] = None
 				self.addToEnv(newPosX, newPosY)
 				self.dijkstraAlg()
 
 			elif isInstance(thing, Hunter):
+				#If coliding a Hunter, launching the end of the game
 				self.sma.gameover()
+
+			
 
 
 
@@ -59,6 +63,7 @@ class Avatar(Agent):
 		self.direction = "right"
 
 
+	#Using Dijkstra to spread distances to the Avatar around the environment
 	def dijkstraAlg(self):
 		toProcessTab = []
 		toProcessTab.append(self.posX, self.posY)
