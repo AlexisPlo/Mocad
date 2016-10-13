@@ -3,6 +3,7 @@ import random
 from Simulateur.core.Agent import Agent
 
 
+
 class Avatar(Agent):
 
 
@@ -13,14 +14,15 @@ class Avatar(Agent):
 		self.direction = "none"
 
 
+
 	def decide(self):
 
 		if self.direction == "up":
 			pasX = 0
-			pasY = 1
+			pasY = -1
 		elif self.direction == "down":
 			pasX = 0
-			pasY = -1
+			pasY = 1
 		elif self.direction == "left":
 			pasX = -1
 			pasY = 0
@@ -41,9 +43,9 @@ class Avatar(Agent):
 				self.addToEnv(newPosX, newPosY)
 				self.dijkstraAlg()
 
-			elif isInstance(thing, Hunter):
+			elif isinstance(thing, Hunter):
 				#If coliding a Hunter, launching the end of the game
-				self.sma.gameover()
+				self.sma.gameOver()
 
 			
 
@@ -66,13 +68,29 @@ class Avatar(Agent):
 	#Using Dijkstra to spread distances to the Avatar around the environment
 	def dijkstraAlg(self):
 		toProcessTab = []
-		toProcessTab.append(self.posX, self.posY)
+		toProcessTab.append((self.posX, self.posY))
 		actualScore = 0
 
+		self.env.resetDijkstra()
+
 		while len(toProcessTab) > 0:
+			print(len(toProcessTab))
+			
 			newTab = []
 			for pos in toProcessTab:
 
-				newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, -1, 0)
-				if newPosX>=0 and newPosY>=0:
-					
+				self.env.dijkstraTab[pos[0]][pos[1]] = actualScore
+
+				for i, j in [(-1,0), (1,0), (0,-1), (0,1)]:
+
+					newPosX, newPosY = self.env.getNextCoord(pos[0], pos[1], i, j)
+					if newPosX>=0 and newPosY>=0:
+						thing = self.env.agTab[newPosX][newPosY]
+						if thing is None and self.env.dijkstraTab[newPosX][newPosY] > -1:
+							newTab.append((newPosX, newPosY))
+
+			actualScore += 1
+			toProcessTab = newTab
+
+
+from Simulateur.hunter.Hunter import Hunter

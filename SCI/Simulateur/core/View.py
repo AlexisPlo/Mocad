@@ -35,4 +35,3 @@ class View(tk.Frame):
 
 
 
-

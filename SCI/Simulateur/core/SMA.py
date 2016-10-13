@@ -41,12 +41,13 @@ class SMA:
 		self.actualTick += 1
 
 		if(self.actualTick<self.nbTicks or self.nbTicks == 0):
-			self.view.after(self.tickTime, self.runStep())
+			self.view.after(self.tickTime, self.runStep)
 		else:
 			self.view.master.quit()
 
 	def writeTickLine(self):
-		print("Should not arrive here")
+		#print("Should not arrive here")
+		pass
 
 	#Deactivated for now; not used and makes too large trace
 	
