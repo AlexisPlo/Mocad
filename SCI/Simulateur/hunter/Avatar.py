@@ -2,6 +2,8 @@ import random
 
 from Simulateur.core.Agent import Agent
 from Simulateur.hunter.Pow import Pow
+from Simulateur.hunter.Wall import Wall
+from Simulateur.hunter.Exit import Exit
 
 
 
@@ -60,10 +62,17 @@ class Avatar(Agent):
 				self.dijkstraAlg()
 
 			elif isinstance(thing, Hunter):
-				#If coliding a Hunter, launching the end of the game
-				self.sma.gameOver()
+				if self.invincible:
+					thing.die()
+					self.env.agTab[self.posX][self.posY] = None
+					self.addToEnv(newPosX, newPosY)
+					self.dijkstraAlg()
+				#If coliding a Hunter and not invincible, launching the end of the game
+				else:
+					self.sma.gameOver()
 
-			
+			elif isinstance(thing, Exit):
+				self.sma.gameWon()
 
 
 
@@ -101,7 +110,7 @@ class Avatar(Agent):
 					newPosX, newPosY = self.env.getNextCoord(pos[0], pos[1], i, j)
 					if newPosX>=0 and newPosY>=0:
 						thing = self.env.agTab[newPosX][newPosY]
-						if not isinstance(thing, Avatar) and self.env.dijkstraTab[newPosX][newPosY] == -1:
+						if not isinstance(thing, Wall) and self.env.dijkstraTab[newPosX][newPosY] == -1:
 							newTab.append((newPosX, newPosY))
 							self.env.dijkstraTab[newPosX][newPosY] = -2
 

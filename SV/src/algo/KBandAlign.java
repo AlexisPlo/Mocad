@@ -24,9 +24,9 @@ public class KBandAlign {
 		//Initialisation
 		
 		for(int i = 0; i<=epsilon && i<text.length(); i++){
-			this.matrix[i][0] = i * score.getIndel();
+			this.matrix[i][0] = 0;
 		}
-		for(int j = 0; j<=epsilon && j<text.length(); j++){
+		for(int j = 0; j<=epsilon && j<read.length(); j++){
 			this.matrix[0][j] = j * score.getIndel();
 		}
 		
@@ -34,7 +34,7 @@ public class KBandAlign {
 		
 		for(int j = 1; j<=read.length(); j++){
 			int imin = Integer.max(1, j - epsilon);
-			int imax = Integer.min(text.length(), j + epsilon);
+			int imax = Integer.min(text.length(), text.length()- read.length() + epsilon + j );
 			
 			for(int i = imin; i<= imax; i++){
 				
@@ -75,7 +75,7 @@ public class KBandAlign {
 		int maxStart = Integer.MIN_VALUE;
 		int bestI = 0;
 		
-		for(int i = Integer.max(0, read.length() - epsilon); i <= read.length() + epsilon; i++){
+		for(int i = Integer.max(0, read.length() - epsilon); i < text.length(); i++){
 			int newStart = matrix[i][read.length()];
 			if(newStart > maxStart) {
 				bestI = i;
@@ -125,7 +125,7 @@ public class KBandAlign {
 					continue;
 				}
 			}
-			if (actualI >0){
+			if (actualI >0 && actualJ >0){
 				neiScore = matrix[actualI-1][actualJ];
 				if (actualScore - neiScore == this.score.getIndel()){
 					readString = "-"+ readString;
@@ -135,6 +135,13 @@ public class KBandAlign {
 					actualScore = neiScore;
 					continue;
 				}
+			}
+			if (actualI >0 && actualJ == 0){
+				readString = "-"+ readString;
+				textString = text.charAt(actualI-1)+ textString;
+				alignString = " " + alignString;
+				actualI--;
+				continue;
 			}
 			readString = "@"+ readString;
 			textString = "@"+ textString;
@@ -151,7 +158,7 @@ public class KBandAlign {
 		ScoreGrid sc = new ScoreGrid(1,-1,-2);
 		KBandAlign al = new KBandAlign(2, sc);
 		String read = "agatcgagctagct";
-		String text = "gcatcgagctagcgatcgatg";
+		String text = "gagtcacatcagatcgagctagcgatcgatg";
 		
 		al.buildMatrix(read, text);
 		al.printMatrix();

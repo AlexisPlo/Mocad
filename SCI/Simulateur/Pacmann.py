@@ -20,19 +20,19 @@ from Simulateur import PacmannProperties
 import time
 
 GRIDSIZEX = PacmannProperties.gridsizeX
-GRIDSIZEY = PacmannProperties.gridsizeX
+GRIDSIZEY = PacmannProperties.gridsizeY
 
 
 TICKSNB = PacmannProperties.tickNb
 TICKTIME = PacmannProperties.tickDuration
 
-HUNTERNB = 1
-POWNB = 3
+HUNTERNB = PacmannProperties.hunterNb
+POWNB = PacmannProperties.powNb
 
 root = tk.Tk()
 v = ViewHunter(800/GRIDSIZEX,800/GRIDSIZEY, master = root)
 
-e = EnvironmentHunter(GRIDSIZEX, GRIDSIZEY)
+e = EnvironmentHunter(GRIDSIZEX, GRIDSIZEY, POWNB)
 
 s = SMAHunter(e,v,0 ,TICKSNB, TICKTIME)
 

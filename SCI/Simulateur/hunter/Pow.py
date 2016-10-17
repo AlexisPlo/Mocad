@@ -13,6 +13,7 @@ class Pow(Agent):
 
 
 	def isEaten(self):
+		self.env.removePow(self.sma)
 		self.alive = False
 		self.env.agTab[self.posX][self.posY] = None
 

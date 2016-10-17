@@ -1,4 +1,4 @@
-
+import sys
 
 from Simulateur.core.SMA import SMA
 
@@ -14,4 +14,9 @@ class SMAHunter(SMA):
 
 
 	def gameOver(self):
-		self.view.master.quit()
+		print("YOU LOSE!")
+		sys.exit()
+		
+	def gameWon(self):
+		print("YOU WIN!")
+		sys.exit()

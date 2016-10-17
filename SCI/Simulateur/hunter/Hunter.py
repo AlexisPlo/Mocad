@@ -17,6 +17,11 @@ class Hunter(Agent):
 		bestPosX = -1
 		bestPosY = -1
 		bestDist = -1
+		
+		if self.ava.invincible:
+			self.color = "green"
+		else:
+			self.color = "red"
 
 		for i, j in [(-1,0), (1,0), (0,-1), (0,1)]:
 
@@ -40,6 +45,10 @@ class Hunter(Agent):
 		if bestPosX != -1:
 			self.env.agTab[self.posX][self.posY] = None
 			self.addToEnv(bestPosX, bestPosY)
+			
+	def die(self):
+		self.alive = False
+		self.env.agTab[self.posX][self.posY] = None
 
 
 from Simulateur.hunter.Avatar import Avatar
