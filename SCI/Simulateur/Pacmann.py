@@ -12,6 +12,8 @@ from Simulateur.hunter.EnvironmentHunter import EnvironmentHunter
 from Simulateur.hunter.SMAHunter import SMAHunter
 from Simulateur.hunter.Avatar import Avatar
 from Simulateur.hunter.Hunter import Hunter
+from Simulateur.hunter.Wall import Wall
+from Simulateur.hunter.Pow import Pow
 
 
 from Simulateur import PacmannProperties
@@ -24,7 +26,8 @@ GRIDSIZEY = PacmannProperties.gridsizeX
 TICKSNB = PacmannProperties.tickNb
 TICKTIME = PacmannProperties.tickDuration
 
-HUNTERNB = 5
+HUNTERNB = 1
+POWNB = 3
 
 root = tk.Tk()
 v = ViewHunter(800/GRIDSIZEX,800/GRIDSIZEY, master = root)
@@ -33,6 +36,17 @@ e = EnvironmentHunter(GRIDSIZEX, GRIDSIZEY)
 
 s = SMAHunter(e,v,0 ,TICKSNB, TICKTIME)
 
+
+
+#Initiating Walls
+
+for i in range(int((GRIDSIZEY * GRIDSIZEX) / 15)):
+	w = Wall(e, s)
+	w.addWall()
+
+
+#Initiating Avatar
+
 ava = Avatar(e, s)
 
 v.setAvatar(ava)
@@ -40,11 +54,18 @@ ava.addRandomToEnv()
 
 ava.dijkstraAlg()
 
-
+#Initiating Hunters
 
 for i in range(HUNTERNB):
-	h = Hunter(e, s)
+	h = Hunter(e, s, ava)
 	h.addRandomToEnv()
+
+
+#Initiating power up
+
+for i in range(POWNB):
+	p = Pow(e,s)
+	p.addRandomToEnv()
 
 
 

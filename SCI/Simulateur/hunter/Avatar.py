@@ -1,6 +1,7 @@
 import random
 
 from Simulateur.core.Agent import Agent
+from Simulateur.hunter.Pow import Pow
 
 
 
@@ -10,8 +11,10 @@ class Avatar(Agent):
 
 	def __init__(self, _env, _sma):
 
-		Agent.__init__(self, _env, _sma, "green", "circle")
+		Agent.__init__(self, _env, _sma, "yellow", "circle")
 		self.direction = "none"
+		self.invincible = False
+		self.invinCounter = 0
 
 
 
@@ -33,12 +36,25 @@ class Avatar(Agent):
 			pasX = 0
 			pasY = 0
 
+		if self.invinCounter > 0:
+			self.invinCounter -= 1
+			if self.invinCounter == 0:
+				self.invincible = False
+
 		newPosX, newPosY = self.env.getNextCoord(self.posX, self.posY, pasX, pasY)
 
 		if newPosX>=0 and newPosY >=0:
 			thing = self.env.agTab[newPosX][newPosY]
 			if thing is None:
 				#If empty square, moving to new position
+				self.env.agTab[self.posX][self.posY] = None
+				self.addToEnv(newPosX, newPosY)
+				self.dijkstraAlg()
+
+			if isinstance(thing, Pow):
+				thing.isEaten()
+				self.invincible = True
+				self.invinCounter = 5
 				self.env.agTab[self.posX][self.posY] = None
 				self.addToEnv(newPosX, newPosY)
 				self.dijkstraAlg()
@@ -74,7 +90,6 @@ class Avatar(Agent):
 		self.env.resetDijkstra()
 
 		while len(toProcessTab) > 0:
-			print(len(toProcessTab))
 			
 			newTab = []
 			for pos in toProcessTab:
@@ -86,8 +101,9 @@ class Avatar(Agent):
 					newPosX, newPosY = self.env.getNextCoord(pos[0], pos[1], i, j)
 					if newPosX>=0 and newPosY>=0:
 						thing = self.env.agTab[newPosX][newPosY]
-						if thing is None and self.env.dijkstraTab[newPosX][newPosY] > -1:
+						if not isinstance(thing, Avatar) and self.env.dijkstraTab[newPosX][newPosY] == -1:
 							newTab.append((newPosX, newPosY))
+							self.env.dijkstraTab[newPosX][newPosY] = -2
 
 			actualScore += 1
 			toProcessTab = newTab

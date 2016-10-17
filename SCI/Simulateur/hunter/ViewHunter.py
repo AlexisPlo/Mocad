@@ -22,7 +22,7 @@ class ViewHunter(View):
 
 	def __init__(self, _wid, _hei, master=None):
 
-		View.__init__(self, _wid, _hei, master)
+		View.__init__(self, _wid, _hei, master, "#207")
 		self.focus_set()
 		self.bind("<Key>", self.keyPressed)
 

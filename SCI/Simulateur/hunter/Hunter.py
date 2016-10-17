@@ -1,12 +1,14 @@
 from Simulateur.core.Agent import Agent
+import random
 
 
 class Hunter(Agent):
 
 
-	def __init__(self, _env, _sma):
+	def __init__(self, _env, _sma, _ava):
 
 		Agent.__init__(self, _env, _sma, "red", "circle")
+		self.ava = _ava
 		
 
 
@@ -23,19 +25,23 @@ class Hunter(Agent):
 				thing = self.env.agTab[newPosX][newPosY]
 				if thing is None:
 					distance = self.env.dijkstraTab[newPosX][newPosY]
-					if distance < bestDist or bestDist == -1:
+					if (not self.ava.invincible and distance < bestDist) or (self.ava.invincible and distance > bestDist) or bestDist == -1:
 						bestDist = distance
 						bestPosX = newPosX
 						bestPosY = newPosY
-				elif isinstance(thing, Avatar):
+					elif distance == bestDist:
+						if random.randint(0,1) == 0:
+							bestDist = distance
+							bestPosX = newPosX
+							bestPosY = newPosY
+				elif isinstance(thing, Avatar) and not self.ava.invincible:
 					self.sma.gameOver()
 
 		if bestPosX != -1:
 			self.env.agTab[self.posX][self.posY] = None
-			self.addToEnv(newPosX, newPosY)
+			self.addToEnv(bestPosX, bestPosY)
 
 
 from Simulateur.hunter.Avatar import Avatar
-                        
-                        
+
 					
