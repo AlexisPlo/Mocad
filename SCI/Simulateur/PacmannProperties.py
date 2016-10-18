@@ -10,5 +10,5 @@ tickNb = 0
 #Temps d'attente entre chaque tick, en milli-secondes
 tickDuration = 500
 
-hunterNb = 4
-powNb = 6
+hunterNb = 2
+powNb = 10

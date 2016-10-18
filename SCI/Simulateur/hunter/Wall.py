@@ -6,7 +6,7 @@ class Wall(Agent):
 
 
 	def __init__(self, _env, _sma):
-
+		
 		Agent.__init__(self, _env, _sma, "#222", "circle")
 		
 

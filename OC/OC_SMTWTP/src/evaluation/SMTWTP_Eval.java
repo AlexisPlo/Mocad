@@ -25,6 +25,7 @@ public class SMTWTP_Eval {
 				}
 				
 			}
+			sol.setFitness(total_tardiness);
 			return total_tardiness;
 		}
 }
