@@ -27,7 +27,7 @@ public class SuffixArray {
 		Arrays.sort(suffTable);
 		
 		for(int i = 0; i < maxLength; i++){
-			System.out.println(suffTable[i].getSuff());
+			//System.out.println(suffTable[i].getSuff());
 			theArray[i] = suffTable[i].getPos();
 		}
 		
