@@ -28,7 +28,59 @@ public class ExactSearch {
 			
 			int suffixPos = intArray[m];
 			
-			int i = 0;
+			int comp = comparePos(r, suffixPos);
+			
+			if(comp == 1){
+				g = m+1;
+			}
+			else if(comp == -1){
+				d = m-1;
+			}
+			else{
+				
+				System.out.println(suffixPos);
+				
+				r.addSeededpos(suffixPos);
+				
+				int firstFind = m;
+				
+				boolean differs = false;
+				
+				
+				while(!differs && m > 0){
+					m--;
+					suffixPos = intArray[m];
+					comp = comparePos(r, suffixPos);
+					if (comp == 0){
+						System.out.println(suffixPos);
+						r.addSeededpos(suffixPos);
+					}
+					else{
+						differs = true;
+					}
+					
+				}
+				
+				m = firstFind;
+				differs = false;
+				
+				while(!differs && m < intArray.length){
+					m++;
+					suffixPos = intArray[m];
+					comp = comparePos(r, suffixPos);
+					if (comp == 0){
+						System.out.println(suffixPos);
+						r.addSeededpos(suffixPos);
+					}
+					else{
+						differs = true;
+					}
+					
+				}
+				break;
+			}
+			
+			/*int i = 0;
 			while( i<r.getContent().length()){
 				if(suffixPos + i >= sa.getBaseText().length()){
 					g = m + 1;
@@ -47,28 +99,36 @@ public class ExactSearch {
 					break;
 				}
 				i++;
-			}
-			if(i == r.getContent().length()){
-				
-				r.addSeededpos(suffixPos);
-				
-				int firstFind = m;
-				
-				boolean differs = false;
-				
-				while(false){
-					m--;
-					
-				}
-				
-				
-				
-				
-				break;
-			}
+			}*/
+
 		}
 		
 	}
+	
+	public int comparePos(Read r, int posT){
+		
+		int i = 0;
+		while( i<r.getContent().length()){
+			if(posT + i >= sa.getBaseText().length()){
+				return 1;
+			}
+			char cr = r.getContent().charAt(i);
+			char ct = sa.getBaseText().charAt(posT + i);
+			if (cr < ct){
+				System.out.println("smaller");
+				return -1;
+			}
+			else if (cr > ct){
+				System.out.println("greater");
+				return 1;
+			}
+			i++;
+		}
+		System.out.println("equal");
+		return 0;
+	}
+	
+	
 	
 
 	public SuffixArray getSa() {
