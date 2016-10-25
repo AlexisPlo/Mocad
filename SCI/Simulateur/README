@@ -1,12 +1,26 @@
 Auteur: PERNET Alexis
 
-TP2: SMA: Travail sur les comportements
+Ensemble des 3 TP de programmation de SMA
+
+1) Billes
+
+
+Pour lancer le sma avec les billes, faire:
+
+	python3 Billes.py
+
+
+Il est possible de modifier les paramètre dans le fichier BillesProperties.py
+
+
+
+
+2) Wator
 
 
 Pour lancer wator, faire:
 
 	python3 Wator.py
-
 
 Pour modifier les paramètres d'éxécution, modifier le fichier WatorProperties.py
 
@@ -20,3 +34,16 @@ On peut lancer:
 pour obtenir la courbe d'évolution de la proportion de poissons et de requins lors de la simulation.
 
 Un exemple de courbe est dans le fichier PourcentageFishShark.png
+
+
+
+3) Pacman
+
+Pour lancer le pacman:
+
+	python3 Pacmann.py
+
+
+Les paramètres sont situés dans le fichier PacmannProperties.py
+
+Les différents types d'agents, ainsi que les pastilles pour rendre invincible, et la création de la sortie pour finir la partie, ont été implémentés.

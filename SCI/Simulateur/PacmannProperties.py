@@ -11,4 +11,4 @@ tickNb = 0
 tickDuration = 500
 
 hunterNb = 2
-powNb = 10
+powNb = 5

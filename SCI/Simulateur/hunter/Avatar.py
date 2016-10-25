@@ -56,7 +56,7 @@ class Avatar(Agent):
 			if isinstance(thing, Pow):
 				thing.isEaten()
 				self.invincible = True
-				self.invinCounter = 5
+				self.invinCounter = 10
 				self.env.agTab[self.posX][self.posY] = None
 				self.addToEnv(newPosX, newPosY)
 				self.dijkstraAlg()
