@@ -87,12 +87,12 @@ public class SimpleGA extends SMTWTP_Algo{
 				this.evaluator.evaluate(newPop.get(i));
 			}
 			
-			SMTWTP_Sol worst_new;
-			int worst_fitness = 0;
-			SMTWTP_Sol best_old;
-			int best_fitness = Integer.MAX_VALUE;
+			SMTWTP_Sol worst_new = newPop.get(0);
+			int worst_fitness = worst_new.getFitness();
+			SMTWTP_Sol best_old = actual.get(0);
+			int best_fitness = best_old.getFitness();
 			
-			for(int i = 0; i<this.pop_size; i++) {
+			for(int i = 1; i<this.pop_size; i++) {
 				if (newPop.get(i).getFitness() > worst_fitness){
 					worst_new = newPop.get(i);
 					worst_fitness = worst_new.getFitness();
@@ -104,10 +104,26 @@ public class SimpleGA extends SMTWTP_Algo{
 				
 			}
 			
+			if (best_fitness > worst_fitness){
+				actual.remove(worst_new);
+				actual.add(best_old);
+			}
+			
+		}
+		
+		SMTWTP_Sol best_sol = actual.get(0);
+		int best_fitness = best_sol.getFitness();
+		
+		for(int i = 1; i<this.pop_size; i++) {
+			if (actual.get(i).getFitness() < best_fitness){
+				best_sol = actual.get(i);
+				best_fitness = best_sol.getFitness();
+			}
+			
 		}
 		
 		
-		return null;
+		return best_sol;
 		
 		
 	}

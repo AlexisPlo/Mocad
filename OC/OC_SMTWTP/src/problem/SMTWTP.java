@@ -3,6 +3,7 @@ package problem;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import neighboor.SMTWTP_Exchange;
@@ -19,6 +20,7 @@ import algorithm.EDD;
 import algorithm.HillClimbing;
 import algorithm.MDD;
 import algorithm.RandomSol;
+import algorithm.SimpleGA;
 import algorithm.VND;
 
 public class SMTWTP implements Instance{
@@ -110,6 +112,7 @@ public class SMTWTP implements Instance{
 //		for(SMTWTP i: instances){
 //			System.out.println(i);
 //		}
+		Random r = new Random(42);
 		
 		for(int i = 0; i<20; i++){
 			SMTWTP_Eval eval = new SMTWTP_Eval(instances.get(i));
@@ -117,7 +120,7 @@ public class SMTWTP implements Instance{
 			SMTWTP_Sol sol1 = algo.run();
 			System.out.println("Instance " + i );
 			System.out.println("La fonction de cout de la solution trouvée est: " + eval.evaluate(sol1));
-			HillClimbing algo2 = new HillClimbing(instances.get(i), new First_Improv(), new SMTWTP_Insert(), new MDD(instances.get(i)));
+			SimpleGA algo2 = new SimpleGA(instances.get(i), null, null, null, null, null, i, i);
 			SMTWTP_Sol sol2 = algo2.run();
 			System.out.println("Instance " + i );
 			System.out.println("La fonction de cout de la solution trouvée est: " + eval.evaluate(sol2));
