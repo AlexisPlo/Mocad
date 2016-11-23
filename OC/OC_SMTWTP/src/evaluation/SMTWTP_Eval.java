@@ -1,5 +1,7 @@
 package evaluation;
 
+import java.util.HashSet;
+
 import problem.SMTWTP;
 import problem.SMTWTP_Task;
 import solution.SMTWTP_Sol;
@@ -14,7 +16,14 @@ public class SMTWTP_Eval {
 			this.inst = inst;
 		}
 		
-		public int evaluate(SMTWTP_Sol sol){
+		public int evaluate(SMTWTP_Sol sol) throws Exception{
+			int sol_size = sol.getTaskNbList().size();
+			HashSet<Integer> se = new HashSet<Integer>();
+			se.addAll(sol.getTaskNbList());
+			int set_size = se.size();
+			if(set_size != sol_size){
+				throw new Exception();
+			}
 			int actual_time = 0;
 			int total_tardiness = 0;
 			for(Integer i: sol.getTaskNbList()){

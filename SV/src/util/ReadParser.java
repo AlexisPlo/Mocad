@@ -29,10 +29,11 @@ public class ReadParser {
 			String line = br.readLine();
 			
 			while(line != null){
-				if(Pattern.matches("@.*length", line)){
+				if(Pattern.matches("@.*length.*", line)){
 					String readSeq = br.readLine();
 					res.add(new Read(readSeq));
 				}
+				line = br.readLine();
 			}
 		
 		
@@ -41,7 +42,7 @@ public class ReadParser {
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		return null;
+		return res;
 		
 		
 		
@@ -50,7 +51,9 @@ public class ReadParser {
 	
 	public static void main(String[] args){
 		ReadParser rp = new ReadParser("SRR1930021.fastq");
-		List<Read>
+		List<Read> testlist = rp.parseFile();
+		System.out.println(testlist.size());
+
 	}
 	
 }

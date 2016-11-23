@@ -7,7 +7,7 @@ import evaluation.SMTWTP_Eval;
 public class Best_Improv implements Selector{
 
 	@Override
-	public SMTWTP_Sol selectSol(SMTWTP_Sol initial, Neighbourhood nei, SMTWTP_Eval eval) {
+	public SMTWTP_Sol selectSol(SMTWTP_Sol initial, Neighbourhood nei, SMTWTP_Eval eval) throws Exception {
 		SMTWTP_Sol actual = initial;
 		int old_score = eval.evaluate(actual);
 		int best_score = old_score;

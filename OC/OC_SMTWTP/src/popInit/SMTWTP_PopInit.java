@@ -5,6 +5,6 @@ import solution.SMTWTP_Pop;
 
 public interface SMTWTP_PopInit {
 	
-	public SMTWTP_Pop generateInit(SMTWTP inst);
+	public SMTWTP_Pop generateInit(SMTWTP inst, int pop_size);
 
 }

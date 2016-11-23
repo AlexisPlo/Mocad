@@ -45,7 +45,12 @@ public class VND extends SMTWTP_Algo{
 		SMTWTP_Sol newSol = null;
 		while(true) {
 			for(int i = 0; i < neis.size(); i++){
+				try {
 				newSol = select.selectSol(actual, neis.get(i), this.evaluator);
+				}
+				catch (Exception e) {
+					System.out.println("EVAL FAILED");
+				}
 				if (newSol != actual)
 					break;
 			}

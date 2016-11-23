@@ -27,7 +27,13 @@ public class HillClimbing extends SMTWTP_Algo{
 
 		
 		while(true) {
-			SMTWTP_Sol newSol = select.selectSol(actual, nei, this.evaluator);
+			SMTWTP_Sol newSol = null;
+			try {
+				newSol = select.selectSol(actual, nei, this.evaluator);
+			}
+			catch (Exception e) {
+				System.out.println("EVAL FAILED");
+			}
 			if (newSol == actual)
 				break;
 			actual = newSol;

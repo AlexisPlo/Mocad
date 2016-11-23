@@ -14,5 +14,5 @@ public abstract class SMTWTP_Algo {
 		this.evaluator = new SMTWTP_Eval(inst);
 	}
 	
-	public abstract SMTWTP_Sol run(); 
+	public abstract SMTWTP_Sol run();
 }

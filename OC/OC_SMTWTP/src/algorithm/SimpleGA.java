@@ -50,9 +50,23 @@ public class SimpleGA extends SMTWTP_Algo{
 		Random rng = new Random();
 		
 		SMTWTP_Pop actual;
-		actual = initiator.generateInit(inst);
+		actual = initiator.generateInit(inst, pop_size);
+		
+		//Evaluating the generated offspring
+		
+		for(int i = 0; i<this.pop_size; i++) {
+			try {
+				this.evaluator.evaluate(actual.get(i));
+			}
+			catch (Exception e) {
+				System.out.println(actual.get(i).getTaskNbList());
+				System.out.println("EVAL FAILED");
+			}
+		}
 		
 		while(evaluation_counter < max_eval){
+			
+						
 			SMTWTP_Pop newPop = new SMTWTP_Pop();
 			
 			//Generating offspring via crossover
@@ -83,9 +97,17 @@ public class SimpleGA extends SMTWTP_Algo{
 			
 			
 			//Evaluating the generated offspring
+			
 			for(int i = 0; i<this.pop_size; i++) {
-				this.evaluator.evaluate(newPop.get(i));
+				try {
+					this.evaluator.evaluate(newPop.get(i));
+				}
+				catch (Exception e) {
+					System.out.println(newPop.get(i).getTaskNbList());
+					System.out.println("EVAL FAILED");
+				}
 			}
+			
 			
 			SMTWTP_Sol worst_new = newPop.get(0);
 			int worst_fitness = worst_new.getFitness();
@@ -104,12 +126,29 @@ public class SimpleGA extends SMTWTP_Algo{
 				
 			}
 			
-			if (best_fitness > worst_fitness){
-				actual.remove(worst_new);
-				actual.add(best_old);
+			if (best_fitness < worst_fitness){
+				newPop.remove(worst_new);
+				newPop.add(best_old);
 			}
 			
+			actual = newPop;
+			
+			evaluation_counter += pop_size;
+			generation_counter += 1;
+			
+			
+			
 		}
+		
+		
+		String sss = "";
+		for (int i = 0; i < this.pop_size; i++){
+			
+			sss += actual.get(i).getFitness() + ";";
+			
+		}
+		System.out.println(sss);
+		
 		
 		SMTWTP_Sol best_sol = actual.get(0);
 		int best_fitness = best_sol.getFitness();

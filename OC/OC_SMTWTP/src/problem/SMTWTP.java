@@ -6,12 +6,18 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import crossover.Order_Based_Crossover;
+import mutation.Swap_Mutation;
+
+import popInit.Hybrid_Initiator;
+
 import neighboor.SMTWTP_Exchange;
 import neighboor.SMTWTP_Insert;
 import neighboor.SMTWTP_Swap;
 
 import evaluation.SMTWTP_Eval;
 
+import select.Tournament_Selector;
 import selection.Best_Improv;
 import selection.First_Improv;
 import solution.SMTWTP_Sol;
@@ -115,16 +121,23 @@ public class SMTWTP implements Instance{
 		Random r = new Random(42);
 		
 		for(int i = 0; i<20; i++){
-			SMTWTP_Eval eval = new SMTWTP_Eval(instances.get(i));
-			VND algo = new VND(instances.get(i), new First_Improv(), 0, new MDD(instances.get(i)));
-			SMTWTP_Sol sol1 = algo.run();
-			System.out.println("Instance " + i );
-			System.out.println("La fonction de cout de la solution trouvée est: " + eval.evaluate(sol1));
-			SimpleGA algo2 = new SimpleGA(instances.get(i), null, null, null, null, null, i, i);
-			SMTWTP_Sol sol2 = algo2.run();
-			System.out.println("Instance " + i );
-			System.out.println("La fonction de cout de la solution trouvée est: " + eval.evaluate(sol2));
-			
+			try{
+				SMTWTP_Eval eval = new SMTWTP_Eval(instances.get(i));
+				HillClimbing algo = new HillClimbing(instances.get(i), new Best_Improv(), new SMTWTP_Insert(), new RandomSol(instances.get(i), r));
+				//VND algo = new VND(instances.get(i), new First_Improv(), 0, new MDD(instances.get(i)));
+				//MDD algo = new MDD(instances.get(i));
+				SMTWTP_Sol sol1 = algo.run();
+				System.out.println("Instance " + i );
+				System.out.println("La fonction de cout de la solution trouvée est: " + eval.evaluate(sol1));
+				/*SimpleGA algo2 = new SimpleGA(instances.get(i), new Hybrid_Initiator(r),
+						new Tournament_Selector(2, r, eval), new Order_Based_Crossover(r), new Swap_Mutation(r), null, 50, 1000000);
+				SMTWTP_Sol sol2 = algo2.run();
+				System.out.println("Instance " + i );
+				System.out.println("La fonction de cout de la solution trouvée est: " + eval.evaluate(sol2));
+			*/}
+			catch(Exception e){
+				
+			}
 		}
 	}
 }
