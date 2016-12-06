@@ -21,21 +21,33 @@ for i in range(10000):
 
 n, bins, patches = plt.hist(lis, bins = 100)
 
+plt.draw()
+
+plt.figure()
+
+lis = []
+
+for i in range(10000):
+	#f.write(str(i) = "\n")
+	lis.append(tirage_x(10))
+
+
+
+n, bins, patches = plt.hist(lis, bins = 100)
+
+plt.draw()
+
+plt.figure()
+
+
+lis = []
+
+for i in range(10000):
+	#f.write(str(i) = "\n")
+	lis.append(tirage_x(100))
+
+
+
+n, bins, patches = plt.hist(lis, bins = 100)
+
 plt.show()
-
-
-#resdict = {}
-
-# for i in range(1000):
-# 	newval = tirage_x(1)
-# 	if newval not in resdict:
-# 		resdict[newval] = 1
-# 	else:
-# 		resdict[newval] += 1
-
-# for k, v in resdict.iteritems():
-
-# 	f.write(str(k) + " " + str(v)+"\n")
-
-
-# print(resdict)

@@ -14,6 +14,7 @@ to setup
   ask node 3 [setxy min-pxcor max-pycor]
   ask node 4 [setxy min-pxcor min-pycor]
   ask nodes with [who > 0] [create-link-with node 0]
+  reset-ticks
 end
 
 
@@ -21,12 +22,26 @@ to addcar
   let origin0 one-of nodes
   create-cars 1 [set shape "car"
     set origin origin0
-    let destination0 ([other-end] of [one-of my-links] of origin0)
+    let destination0 one-of nodes with [who > 0]
     set destination destination0
     move-to origin0
     face destination0
-    fd 1
   ]
+end
+
+to runonce
+  ask cars[
+    ifelse (distance destination > 1)
+    [fd 1]
+    [
+      move-to destination
+      let choix one-of nodes with [link-neighbor? ([destination] of myself)]
+      set origin destination
+      set destination choix
+      face destination
+    ]
+  ]
+  tick
 end
 
 
@@ -83,6 +98,23 @@ BUTTON
 NIL
 addcar
 NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+24
+116
+116
+149
+NIL
+runonce
+T
 1
 T
 OBSERVER
