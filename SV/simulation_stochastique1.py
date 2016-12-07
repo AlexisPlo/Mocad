@@ -9,45 +9,100 @@ def tirage_x(cab):
 	return ((logn/cab)) 
 
 
-f = open("resfile","w")
 
-lis = []
+c1 = 10
 
-for i in range(10000):
-	#f.write(str(i) = "\n")
-	lis.append(tirage_x(1))
+A = 10
+B = 0
+nexttime = 0
+
+reactTime = []
+ATime= []
+BTime = []
+
+reactTime.append(0)
+ATime.append(A)
+BTime.append(B)
 
 
 
-n, bins, patches = plt.hist(lis, bins = 100)
+while (A > 0):
+	a1 = A*c1
+	nexttime = nexttime + tirage_x(a1)
+	A -= 1
+	B += 1
+	reactTime.append(nexttime)
+	ATime.append(A)
+	BTime.append(B)
 
-plt.draw()
+plt.plot(reactTime, ATime, label='#A')
+plt.plot(reactTime, BTime, label='#B')
+plt.legend()
 
 plt.figure()
 
-lis = []
-
-for i in range(10000):
-	#f.write(str(i) = "\n")
-	lis.append(tirage_x(10))
 
 
+c1 = 10
 
-n, bins, patches = plt.hist(lis, bins = 100)
+A = 100
+B = 0
+nexttime = 0
+
+reactTime = []
+ATime= []
+BTime = []
+
+reactTime.append(0)
+ATime.append(A)
+BTime.append(B)
+
+
+
+while (A > 0):
+	a1 = A*c1
+	nexttime = nexttime + tirage_x(a1)
+	A -= 1
+	B += 1
+	reactTime.append(nexttime)
+	ATime.append(A)
+	BTime.append(B)
+
+plt.plot(reactTime, ATime, label='#A')
+plt.plot(reactTime, BTime, label='#B')
+plt.legend()
 
 plt.draw()
-
 plt.figure()
 
 
-lis = []
+c1 = 10
 
-for i in range(10000):
-	#f.write(str(i) = "\n")
-	lis.append(tirage_x(100))
+A = 1000
+B = 0
+nexttime = 0
+
+reactTime = []
+ATime= []
+BTime = []
+
+reactTime.append(0)
+ATime.append(A)
+BTime.append(B)
 
 
 
-n, bins, patches = plt.hist(lis, bins = 100)
+while (A > 0):
+	a1 = A*c1
+	nexttime = nexttime + tirage_x(a1)
+	A -= 1
+	B += 1
+	reactTime.append(nexttime)
+	ATime.append(A)
+	BTime.append(B)
+
+plt.plot(reactTime, ATime, label='#A')
+plt.plot(reactTime, BTime, label='#B')
+plt.legend()
 
 plt.show()
