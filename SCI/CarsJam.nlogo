@@ -31,31 +31,13 @@ end
 
 to runonce
   ask cars[
-
-    ifelse (distance destination > 1)
+    ifelse (distance destination > speed)
     [
-      ifelse (any? turtles in-cone perception 0)
-      [
-        let closesT turtles in-cone perception 0 with-min [distance myself]
-        let otherSpeed [speed] of closesT
-      ]
-      [
 
-      ]
-
-      fd speed
-      set speed (speed + 0.05)
-      if (speed < 0)
-          [
-            set speed 0
-          ]
-      if (speed > 1)
-      [
-        set speed 1
-      ]
     ]
     [
       let rest (1 - distance destination)
+
       move-to origin
       face destination
       fd rest
@@ -64,9 +46,96 @@ to runonce
   tick
 end
 
-to moveforward[dist]
-
+to moveforwardNo[dist]
+  let check 0
+  ifelse (dist < perception)
+  [
+    check = dist
+  ]
+  [
+    check = perception
+  ]
+  ifelse (any? turtles in-cone check 0)
+  [
+    let closesT turtles in-cone perception 0 with-min [distance myself]
+    let otherSpeed [speed] of closesT
+    changespeed otherSpeed (distance closesT)
+    ifelse (speed > (distance closesT))
+    [
+      ask closesT [set speed 0]
+      set speed 0
+    ]
+    [
+      fd speed
+    ]
+  ]
+  [
+    fd dist
+  ]
 end
+
+to moveforwardYes[dist]
+  let check 0
+  ifelse (dist < perception)
+  [
+    check = dist
+  ]
+  [
+    check = perception
+  ]
+  ifelse (any? turtles in-cone check 0)
+  [
+    let oldspeed speed
+    let closesT turtles in-cone perception 0 with-min [distance myself]
+    let otherSpeed [speed] of closesT
+    changespeed otherSpeed (distance closesT)
+    ifelse (speed > (distance closesT))
+    [
+      ask closesT [set speed 0]
+      set speed 0
+    ]
+    [
+      fd speed
+    ]
+  ]
+  [
+    let oldspeed speed
+    changespeed 1 1.5
+    fd speed
+  ]
+end
+
+
+to changespeed[target potentialCrash]
+  ifelse (potentialCrash = 1)
+  [
+    set speed (speed - 0.2)
+  ]
+  [
+    let change 0
+    ifelse (speed < target)
+    [
+      set change (target - speed) * accelF + 0.2 * accelF + 0.02
+      if (change > 0.15)
+      [
+        change = 0.15
+      ]
+    ]
+    [
+      set change (target - speed) * brakeF - 0.2 * brakeF - 0.02
+    ]
+    set speed (speed + change)
+  ]
+  if (speed < 0)
+  [
+    set speed 0
+  ]
+  if (speed > 1)
+  [
+    set speed 1
+  ]
+end
+
 
 to brake[otherspeed]
   let b (speed - otherspeed) * brakeF + 0.2 * brakeF + 0.02
@@ -81,7 +150,7 @@ to accelerate[otherspeed]
    let a (otherspeed - speed) * accelF + 0.2 * accelF + 0.02
    if (a > 0.2)
    [
-     let a 0.2
+     set a 0.2
    ]
    set speed (speed + a)
    if (speed > 1)
