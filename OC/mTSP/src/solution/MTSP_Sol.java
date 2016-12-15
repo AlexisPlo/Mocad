@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import evaluation.MTSP_Eval;
+import evaluation.MTSP_Evaluator;
 
 public class MTSP_Sol extends ArrayList<Integer>{
 	
@@ -27,7 +28,9 @@ public class MTSP_Sol extends ArrayList<Integer>{
 		this.eval = eval;
 	}
 
-
+	public void evaluateSol(MTSP_Evaluator evaluator){
+		eval = evaluator.evaluate(this);
+	}
 
 	public boolean dominates(MTSP_Sol other){
 		if (this.eval == null || other.getEval() == null){

@@ -1,0 +1,25 @@
+// model type
+ctmc
+
+// constants
+const sinit = 15;
+const double kenz = 0.01;
+const einit = 10;
+const double T;
+
+module enzyme
+    // var name   // range  // initial value
+    S_:           [0..sinit] init sinit;
+    P_:		  [0..sinit] init 0;
+    E_:		  [0..einit] init einit;
+
+    // transition    guard          rate         how to obtain new state
+    // label            
+    [enz]	(S_ > 0) & (E_ > 0) & (P_ < sinit) -> (kenz*E_*S_): (S_' = S_ - 1) & (P_' = P_ + 1);
+endmodule
+
+        // nom
+rewards "S_"
+    // guard   // value
+    true :     S_;
+endrewards

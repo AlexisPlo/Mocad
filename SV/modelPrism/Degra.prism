@@ -1,0 +1,22 @@
+// model type
+ctmc
+
+// constants
+const ainit = 15;
+const double kdeg = 0.1;
+const double T;
+
+module simpleONOFF
+    // var name   // range  // initial value
+    A_:           [0..ainit] init ainit;
+
+    // transition    guard          rate         how to obtain new state
+    // label            
+    [deg]	(A_ > 0)   -> (kdeg*A_): (A_' = A_ - 1);
+endmodule 
+
+        // nom
+rewards "A_"
+    // guard   // value
+    true :     A_;
+endrewards
