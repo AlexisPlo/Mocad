@@ -1,4 +1,4 @@
 plot	"best.randomAB100.tsp" using 1:2 title 'Best',\
-	"randomOffline.tsp" using 1:2 title 'OfflineRandom'
+	"randomOnline.tsp" using 1:2 title 'OfflineRandom'
 
 pause -1
