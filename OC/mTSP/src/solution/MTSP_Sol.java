@@ -11,6 +11,10 @@ public class MTSP_Sol extends ArrayList<Integer>{
 	
 	private MTSP_Eval eval;
 	
+	public MTSP_Sol(){
+		super();
+	}
+	
 	public MTSP_Sol(ArrayList<Integer> tList){
 		super(tList);
 	}

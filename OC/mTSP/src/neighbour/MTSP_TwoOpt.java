@@ -39,11 +39,9 @@ public class MTSP_TwoOpt implements MTSP_Neighbourhood{
 		int opt_i = rand_i.get(act_i);
 		int opt_j = rand_j.get(act_j); 
 		ArrayList<Integer> newList = new ArrayList<Integer>(base);
-		int temp = newList.remove(ins_i);
-		if(ins_j == i_size)
-			newList.add(temp);
-		else
-			newList.add(ins_j, temp);
+		for(int i = 0; i<opt_j-opt_i; i++){
+			newList.set(opt_i + i, base.get(opt_j-1-i));
+		}
 		this.next_pair();
 		return new MTSP_Sol(newList);
 	}
@@ -62,6 +60,34 @@ public class MTSP_TwoOpt implements MTSP_Neighbourhood{
 				act_j = 0;
 			}
 		}while(act_i<i_size && Math.abs(rand_i.get(act_i) - rand_j.get(act_j)) > 1   );
+	}
+	
+	public static void main(String[] args){
+		MTSP_Sol sss = new MTSP_Sol();
+		sss.add(1);
+		sss.add(2);
+		sss.add(3);
+		sss.add(4);
+		sss.add(5);
+		sss.add(6);
+		sss.add(7);
+		sss.add(8);
+		sss.add(9);
+		sss.add(10);
+		sss.add(11);
+		sss.add(12);
+		
+		MTSP_TwoOpt opt = new MTSP_TwoOpt();
+		opt.init(sss);
+		System.out.println(sss);
+		sss = opt.next();
+		System.out.println(sss);
+		sss = opt.next();
+		System.out.println(sss);
+		sss = opt.next();
+		System.out.println(sss);
+		opt.next();
+		
 	}
 
 }
