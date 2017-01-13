@@ -10,6 +10,7 @@ import evaluation.MTSP_Evaluator;
 public class MTSP_Sol extends ArrayList<Integer>{
 	
 	private MTSP_Eval eval;
+	private double fitness;
 	
 	public MTSP_Sol(){
 		super();
@@ -30,6 +31,16 @@ public class MTSP_Sol extends ArrayList<Integer>{
 
 	public void setEval(MTSP_Eval eval) {
 		this.eval = eval;
+	}
+	
+	
+
+	public double getFitness() {
+		return fitness;
+	}
+
+	public void setFitness(double fitness) {
+		this.fitness = fitness;
 	}
 
 	public void evaluateSol(MTSP_Evaluator evaluator){
