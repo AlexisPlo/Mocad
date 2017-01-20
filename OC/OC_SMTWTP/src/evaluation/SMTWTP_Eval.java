@@ -16,13 +16,13 @@ public class SMTWTP_Eval {
 			this.inst = inst;
 		}
 		
-		public int evaluate(SMTWTP_Sol sol) throws Exception{
+		public int evaluate(SMTWTP_Sol sol) throws IllegalStateException{
 			int sol_size = sol.getTaskNbList().size();
 			HashSet<Integer> se = new HashSet<Integer>();
 			se.addAll(sol.getTaskNbList());
 			int set_size = se.size();
 			if(set_size != sol_size){
-				throw new Exception();
+				throw new IllegalStateException("Evaluation failed");
 			}
 			int actual_time = 0;
 			int total_tardiness = 0;

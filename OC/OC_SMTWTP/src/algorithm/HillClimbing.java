@@ -12,28 +12,43 @@ public class HillClimbing extends SMTWTP_Algo{
 	
 	private Selector select;
 	private Neighbourhood nei;
-	private SMTWTP_Algo init;
+	private SMTWTP_Sol initSol;
+	private int evalCounter;
 
 	public HillClimbing(SMTWTP inst, Selector select, Neighbourhood neighboor, SMTWTP_Algo init){
 		super(inst);
 		this.select = select;
 		this.nei = neighboor;
-		this.init = init;
+		this.initSol = init.run();
+	}
+	
+	public HillClimbing(SMTWTP inst, Selector select, Neighbourhood neighboor, SMTWTP_Sol initSol){
+		super(inst);
+		this.select = select;
+		this.nei = neighboor;
+		this.initSol = initSol;
+	}
+	
+	
+
+	public int getEvalCounter() {
+		return evalCounter;
 	}
 
 	@Override
 	public SMTWTP_Sol run() {
-		SMTWTP_Sol actual = this.init.run();
-
+		this.evalCounter = 0;
+		SMTWTP_Sol actual = this.initSol;
 		
 		while(true) {
 			SMTWTP_Sol newSol = null;
 			try {
 				newSol = select.selectSol(actual, nei, this.evaluator);
 			}
-			catch (Exception e) {
+			catch (IllegalStateException e) {
 				System.out.println("EVAL FAILED");
 			}
+			this.evalCounter += select.getEvaluation_counter();
 			if (newSol == actual)
 				break;
 			actual = newSol;

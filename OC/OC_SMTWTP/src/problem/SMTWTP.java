@@ -9,6 +9,7 @@ import java.util.Scanner;
 import crossover.Order_Based_Crossover;
 import mutation.Swap_Mutation;
 
+import perturbation.SMTWTP_PerturbInsert;
 import popInit.Hybrid_Initiator;
 
 import neighboor.SMTWTP_Exchange;
@@ -24,6 +25,7 @@ import solution.SMTWTP_Sol;
 
 import algorithm.EDD;
 import algorithm.HillClimbing;
+import algorithm.ILS;
 import algorithm.MDD;
 import algorithm.RandomSol;
 import algorithm.SimpleGA;
@@ -123,12 +125,18 @@ public class SMTWTP implements Instance{
 		for(int i = 0; i<20; i++){
 			try{
 				SMTWTP_Eval eval = new SMTWTP_Eval(instances.get(i));
-				HillClimbing algo = new HillClimbing(instances.get(i), new Best_Improv(), new SMTWTP_Insert(), new RandomSol(instances.get(i), r));
+				HillClimbing algo = new HillClimbing(instances.get(i), new First_Improv(), new SMTWTP_Insert(), new RandomSol(instances.get(i), r));
 				//VND algo = new VND(instances.get(i), new First_Improv(), 0, new MDD(instances.get(i)));
 				//MDD algo = new MDD(instances.get(i));
 				SMTWTP_Sol sol1 = algo.run();
 				System.out.println("Instance " + i );
 				System.out.println("La fonction de cout de la solution trouvée est: " + eval.evaluate(sol1));
+				System.out.println(algo.getEvalCounter());
+				ILS algo2 = new ILS(instances.get(i), new First_Improv(), new SMTWTP_Swap(), new SMTWTP_PerturbInsert(5), new RandomSol(instances.get(i), r), 500000);
+				SMTWTP_Sol sol2 = algo2.run();
+				System.out.println("Instance " + i );
+				System.out.println("La fonction de cout de la solution trouvée est: " + eval.evaluate(sol2));
+				System.out.println(algo2.getEvalCounter());
 				/*SimpleGA algo2 = new SimpleGA(instances.get(i), new Hybrid_Initiator(r),
 						new Tournament_Selector(2, r, eval), new Order_Based_Crossover(r), new Swap_Mutation(r), null, 50, 1000000);
 				SMTWTP_Sol sol2 = algo2.run();
@@ -136,7 +144,7 @@ public class SMTWTP implements Instance{
 				System.out.println("La fonction de cout de la solution trouvée est: " + eval.evaluate(sol2));
 			*/}
 			catch(Exception e){
-				
+				e.printStackTrace();
 			}
 		}
 	}
