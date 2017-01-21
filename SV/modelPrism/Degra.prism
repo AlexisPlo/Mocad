@@ -6,7 +6,7 @@ const ainit = 15;
 const double kdeg = 0.1;
 const double T;
 
-module simpleONOFF
+module degra
     // var name   // range  // initial value
     A_:           [0..ainit] init ainit;
 
