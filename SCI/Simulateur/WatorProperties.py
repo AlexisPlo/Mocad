@@ -1,8 +1,8 @@
 #Proprietes pour l'execution de Wator.py
 
 #Taille de la grille
-gridsizeX = 200
-gridsizeY = 200
+gridsizeX = 50
+gridsizeY = 50
 
 #Grille torique ou non (mettre True ou False)
 toric = False
@@ -14,10 +14,10 @@ tickNb = 0
 tickDuration = 50
 
 #Nombre de requins a l'etat initial
-sharknb = 1000
+sharknb = 50
 
 #Nombre de poissons a l'etat initial
-fishnb = 3000
+fishnb = 500
 
 #Nombre de tours avant qu'un poisson se reproduise
 fishoffspringtime = 2
