@@ -1,0 +1,31 @@
+// model type
+ctmc
+
+// constants
+const ainit;
+const binit;
+const cinit ;
+const M = ainit + binit + cinit;
+const double ka = 0.1;
+const double kb = 0.1;
+const double kc = 0.1;
+const double T;
+
+module cycle
+    // var name   // range  // initial value
+    A_:           [0..ainit+binit+cinit] init ainit;
+    B_:		  [0..ainit+binit+cinit] init binit;
+    C_:		  [0..ainit+binit+cinit] init cinit;
+
+    // transition    guard          rate         how to obtain new state
+    // label            
+    [aaa]	(A_ > 0) & (B_ > 0) & (B_ < ainit+binit+cinit) -> (ka*A_*B_): (A_' = A_ - 1) & (B_' = B_ + 1);
+    [bbb]	(B_ > 0) & (C_ > 0) & (C_ < ainit+binit+cinit) -> (kb*B_*C_): (B_' = B_ - 1) & (C_' = C_ + 1);
+    [ccc]	(C_ > 0) & (A_ > 0) & (A_ < ainit+binit+cinit) -> (ka*C_*A_): (C_' = C_ - 1) & (A_' = A_ + 1);
+endmodule
+
+        // nom
+rewards "A_"
+    // guard   // value
+    true :     A_;
+endrewards
