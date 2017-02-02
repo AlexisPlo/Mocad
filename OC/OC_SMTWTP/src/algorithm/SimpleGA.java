@@ -47,6 +47,9 @@ public class SimpleGA extends SMTWTP_Algo{
 	@Override
 	public SMTWTP_Sol run() {
 		
+		this.generation_counter = 0;
+		this.evaluation_counter = 0;
+		
 		Random rng = new Random();
 		
 		SMTWTP_Pop actual;

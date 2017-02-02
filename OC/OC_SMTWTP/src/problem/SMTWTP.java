@@ -115,6 +115,7 @@ public class SMTWTP implements Instance{
 		return desc;
 	}
 	
+	
 	public static void main(String[] args){
 		List<SMTWTP> instances = SMTWTP.readSMTWTPInstancesFile("wt100.txt", 100);
 //		for(SMTWTP i: instances){
@@ -148,4 +149,5 @@ public class SMTWTP implements Instance{
 			}
 		}
 	}
+	
 }
