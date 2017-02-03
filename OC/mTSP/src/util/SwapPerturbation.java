@@ -17,7 +17,7 @@ public class SwapPerturbation {
 	public MTSP_Sol applyPerturbation(MTSP_Sol initial) {
 		int i_size = initial.getTaskNbList().size();
 		Random rand = new Random();
-		SMTWTP_Sol actual = initial;
+		MTSP_Sol actual = initial;
 		
 		for (int i = 0; i<nbMoves; i++){
 			

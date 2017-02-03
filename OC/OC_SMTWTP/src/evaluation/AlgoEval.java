@@ -16,10 +16,12 @@ public class AlgoEval {
 	private double[] wDiff;
 	private SMTWTP_Algo algo;
 	private static SMTWTP_Eval evaluator;
+	private List<SMTWTP> instances;
 	
 	
-	public AlgoEval(SMTWTP_Algo algo){
+	public AlgoEval(SMTWTP_Algo algo, List<SMTWTP> instances){
 		this.algo = algo;
+		this.instances = instances;
 		best = new int[100];
 		myRes = new int[100];
 		wDiff = new double[100];
@@ -39,7 +41,6 @@ public class AlgoEval {
 	
 	
 	public void runAlgos(){
-		List<SMTWTP> instances = SMTWTP.readSMTWTPInstancesFile("wt100.txt", 100);
 		for (int i = 0; i<100; i++){
 			algo.setInstance(instances.get(i));
 			SMTWTP_Sol mySol = algo.run();
@@ -47,7 +48,7 @@ public class AlgoEval {
 		}
 	}
 	
-	public double averageWeightedDiff(){
+	public double meanWeightedDiff(){
 		double temp_sum = 0;
 		for (int i = 0; i<100; i++){
 			double elem_sum = myRes[i] - best[i];
@@ -60,8 +61,12 @@ public class AlgoEval {
 		return temp_sum/100;
 	}
 	
+	public double varianceDiff(){
+		
+	}
+	
 	public static void main (String[] args){
-		AlgoEval ae = new AlgoEval(null);
+		AlgoEval ae = new AlgoEval(null, null);
 		for (int i = 0; i<100; i++){
 			System.out.println(ae.best[i]);
 		}
