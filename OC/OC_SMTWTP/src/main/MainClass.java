@@ -33,6 +33,7 @@ public class MainClass {
 		ae.runAlgos();
 		
 		System.out.println("La moyenne de la diffÃ©rence avec les rÃ©sultats est de: " + ae.meanWeightedDiff());
+		System.out.println("La variance de la différence avec les meilleurs résultats est de " + ae.varianceDiff());
 	}
 
 }
