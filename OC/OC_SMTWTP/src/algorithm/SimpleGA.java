@@ -76,12 +76,12 @@ public class SimpleGA extends SMTWTP_Algo{
 			for(int i = 0; i<this.pop_size / 2; i++){
 				
 				//Selecting parents
-				SMTWTP_Sol p1 = selector.select(actual);
-				SMTWTP_Sol p2 = selector.select(actual);
+				SMTWTP_Sol p1 = selector.select(actual, this.evaluator);
+				SMTWTP_Sol p2 = selector.select(actual, this.evaluator);
 				
 				//Crossover
 				while (p2 == p1){
-					p2 = selector.select(actual);
+					p2 = selector.select(actual, this.evaluator);
 				}
 				
 				crosser.generateOffsprings(p1, p2);
@@ -150,7 +150,6 @@ public class SimpleGA extends SMTWTP_Algo{
 			sss += actual.get(i).getFitness() + ";";
 			
 		}
-		System.out.println(sss);
 		
 		
 		SMTWTP_Sol best_sol = actual.get(0);

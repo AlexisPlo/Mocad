@@ -12,16 +12,14 @@ public class Tournament_Selector implements SMTWTP_Select{
 	
 	private int k;
 	private Random rng;
-	private SMTWTP_Eval evaluator;
 	
-	public Tournament_Selector(int k, Random rng, SMTWTP_Eval evaluator){
+	public Tournament_Selector(int k, Random rng){
 		this.k = k;
 		this.rng = rng;
-		this.evaluator = evaluator;
 	}
 
 	@Override
-	public SMTWTP_Sol select(SMTWTP_Pop pop) {
+	public SMTWTP_Sol select(SMTWTP_Pop pop, SMTWTP_Eval evaluator) {
 		ArrayList<SMTWTP_Sol> potentialList = new ArrayList<SMTWTP_Sol>();
 		int pop_size = pop.size();
 		ArrayList<Integer> possibleList = new ArrayList<Integer>();
@@ -42,7 +40,7 @@ public class Tournament_Selector implements SMTWTP_Select{
 		for (int i = 0; i < k; i++){
 			int fit = Integer.MAX_VALUE;
 			try {
-				fit = this.evaluator.evaluate(potentialList.get(i));
+				fit = evaluator.evaluate(potentialList.get(i));
 			}
 			catch(Exception e){
 				System.out.println("EVAL FAILED");
