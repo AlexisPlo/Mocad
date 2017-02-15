@@ -126,7 +126,7 @@ public class SMTWTP implements Instance{
 		for(int i = 0; i<20; i++){
 			try{
 				SMTWTP_Eval eval = new SMTWTP_Eval(instances.get(i));
-				HillClimbing algo = new HillClimbing(instances.get(i), new First_Improv(), new SMTWTP_Insert(), new RandomSol(instances.get(i), r));
+				HillClimbing algo = new HillClimbing(instances.get(i), new First_Improv(), new SMTWTP_Insert(), 0);
 				//VND algo = new VND(instances.get(i), new First_Improv(), 0, new MDD(instances.get(i)));
 				//MDD algo = new MDD(instances.get(i));
 				SMTWTP_Sol sol1 = algo.run();
